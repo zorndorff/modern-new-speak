@@ -1,11 +1,76 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
-
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+import Translator from '../components/Translator.astro';
+import Appendix from '../components/Appendix.astro';
 ---
 
-<Layout>
-	<Welcome />
+<Layout title="MagaSpeak Translator & Appendix">
+  <div class="bg-gray-100 dark:bg-gray-900 text-gray-900 dark:text-gray-100 min-h-screen p-4">
+    <div class="w-full max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-6 md:p-8">
+      <!-- Header Section -->
+      <div class="text-center mb-6">
+        <h1 class="text-3xl md:text-4xl font-bold text-gray-800 dark:text-white">MagaSpeak Translator & Appendix</h1>
+        <p class="text-gray-600 dark:text-gray-400 mt-2">Translate standard English or read the linguistic analysis of the dialect.</p>
+      </div>
+
+      <!-- Tab Navigation -->
+      <div class="border-b border-gray-200 dark:border-gray-700 mb-6">
+        <nav class="-mb-px flex space-x-8" aria-label="Tabs">
+          <button 
+            id="translatorTab" 
+            class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-red-500 text-red-600"
+            data-tab="translator"
+          >
+            Translator
+          </button>
+          <button 
+            id="appendixTab" 
+            class="tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-600"
+            data-tab="appendix"
+          >
+            Appendix
+          </button>
+        </nav>
+      </div>
+
+      <!-- Tab Content -->
+      <div>
+        <!-- Translator Panel -->
+        <div id="translatorContent">
+          <Translator />
+        </div>
+
+        <!-- Appendix Panel -->
+        <div id="appendixContent" class="hidden">
+          <Appendix />
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const translatorTab = document.getElementById('translatorTab');
+      const appendixTab = document.getElementById('appendixTab');
+      const translatorContent = document.getElementById('translatorContent');
+      const appendixContent = document.getElementById('appendixContent');
+
+      function switchTab(tabName: string) {
+        if (tabName === 'translator') {
+          translatorContent!.style.display = 'block';
+          appendixContent!.style.display = 'none';
+          translatorTab!.className = 'tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-red-500 text-red-600';
+          appendixTab!.className = 'tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-600';
+        } else {
+          translatorContent!.style.display = 'none';
+          appendixContent!.style.display = 'block';
+          appendixTab!.className = 'tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-red-500 text-red-600';
+          translatorTab!.className = 'tab-button whitespace-nowrap py-4 px-1 border-b-2 font-medium text-sm border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 dark:text-gray-400 dark:hover:text-gray-300 dark:hover:border-gray-600';
+        }
+      }
+
+      translatorTab?.addEventListener('click', () => switchTab('translator'));
+      appendixTab?.addEventListener('click', () => switchTab('appendix'));
+    });
+  </script>
 </Layout>
