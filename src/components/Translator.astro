@@ -71,9 +71,24 @@ if (Astro.request.method === 'POST') {
     </div>
 
     {isLoading && (
-      <div class="flex justify-center items-center my-4">
-        <div class="animate-spin rounded-full h-10 w-10 border-b-2 border-blue-500"></div>
-        <p class="ml-4 text-gray-500 dark:text-gray-400">The best translation is coming, believe me...</p>
+      <div class="flex flex-col justify-center items-center my-8 p-6 bg-gradient-to-r from-red-50 to-blue-50 dark:from-red-900/20 dark:to-blue-900/20 rounded-lg border-2 border-dashed border-red-300 dark:border-red-600">
+        <div class="relative">
+          <div class="animate-spin rounded-full h-16 w-16 border-4 border-red-200 border-t-red-600"></div>
+          <div class="absolute inset-0 animate-pulse rounded-full h-16 w-16 border-4 border-transparent border-t-blue-400 opacity-60" style="animation-delay: 0.2s;"></div>
+        </div>
+        <div class="mt-4 text-center">
+          <p class="text-lg font-semibold text-red-600 dark:text-red-400 animate-pulse">
+            Making America's Language Great Again...
+          </p>
+          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+            The best translation is coming, believe me. It's going to be tremendous!
+          </p>
+        </div>
+        <div class="flex space-x-1 mt-3">
+          <div class="w-2 h-2 bg-red-500 rounded-full animate-bounce"></div>
+          <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
+          <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+        </div>
       </div>
     )}
 
