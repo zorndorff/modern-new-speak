@@ -3,110 +3,272 @@ export const prerender = false; // Not needed in 'server' mode
 const AI = Astro.locals.runtime.env.AI as Ai;
 
 let inputText;
-let translatedText = '';
-let error = '';
+let translationMode;
+let translatedText = "";
+let error = "";
 let isLoading = false;
 
-if (Astro.request.method === 'POST') {
+if (Astro.request.method === "POST") {
   try {
     const formData = await Astro.request.formData();
-    inputText = formData.get('inputText') as string;
-    
+    inputText = formData.get("inputText") as string;
+    translationMode = formData.get("translationMode") as string;
+
     if (!inputText?.trim()) {
       error = "You have to enter some text. It's just common sense.";
     } else {
       isLoading = true;
-      
-      const prompt = `
-        You are a "MagaSpeak" translator. Your task is to translate the following text into MagaSpeak, the political dialect of the America First movement. Your translation MUST follow these principles strictly:
-        1. **Core Function: Polarize Thought.** Collapse all meaning into a rigid binary: loyal vs. treacherous, strong vs. weak, good for America vs. bad for America. Eliminate all nuance.
-        2. **A Vocabulary (Rally Words):** Use simple, high-affect, monosyllabic words (great, strong, sad, bad, weak, loser). Use a 4th-grade reading level.
-        3. **B Vocabulary (Loyalty Codes):** Use "Fake News" for critical media, "Deep State" for obstacles, "Witch Hunt" for investigations. Incorporate slogans like "Make America Great Again". Use derogatory nicknames for opponents (Sleepy Joe, Crooked Hillary) and label dissenters as "RINOs."
-        4. **C Vocabulary (Weaponized Concepts):** Use "Woke," "CRT," "Globalist," "Socialist," and "Communist" as all-encompassing terms of abuse. Use "Rigged" or "Hoax" for unfavorable results.
-        5. **Grammar and Rhetoric:** Use relentless superlatives (best, greatest, worst). Use short, declarative, repetitive sentences. Project absolute confidence. Do not worry about logical consistency with past statements.
-        **Translation Task:** Translate the following "Oldspeak" text into MagaSpeak. Be direct, confident, and aggressive in your tone.
-        **Oldspeak Text:** "${inputText}"
-        **MagaSpeak Translation:**
-      `;
 
-      const { response } = await AI.run("@cf/meta/llama-3.3-70b-instruct-fp8-fast", {
-        prompt: prompt,
-      });
-      
+      let prompt;
+      if (translationMode === "newspeak") {
+        prompt = `
+          You are a "Newspeak" translator. Your task is to translate the following text into Newspeak, the official language of Oceania from George Orwell's 1984. Your translation MUST follow these principles strictly:
+          1. **Core Function: Eliminate Unorthodox Thought.** Make heretical thoughts literally unthinkable by removing words that could express them. Reduce vocabulary to minimum necessary for Party loyalty.
+          2. **A Vocabulary (Everyday Words):** Use only simple, concrete words with rigidly defined meanings. Remove all ambiguity and secondary meanings. Use regular grammar: add -ful for adjectives (speedful = rapid), -wise for adverbs (goodwise = well). Use un- for negation (ungood = bad), plus- and doubleplus- for intensification.
+          3. **B Vocabulary (Political Compound Words):** Create short compound words for political concepts: goodthink (orthodoxy), crimethink (thoughtcrime), bellyfeel (blind acceptance), duckspeak (speaking without thinking), oldthink (pre-revolutionary ideas). Use abbreviated forms: Minitrue (Ministry of Truth), Minipax (Ministry of Peace/War), prolefeed (mass entertainment).
+          4. **C Vocabulary (Technical Terms):** Use only essential scientific/technical terms, stripped of broader meanings. No word for "Science" as general concept - covered by "Ingsoc."
+          5. **Grammar Rules:** Perfect regularity - all verbs end in -ed for past tense (thinked, stealed). All plurals add -s/-es (mans, oxes). All comparatives use -er/-est (gooder, goodest). Remove irregular forms completely.
+          **Translation Task:** Translate the following "Oldspeak" text into Newspeak. Eliminate nuance, compress complex ideas into simple terms, and ensure orthodoxy to Ingsoc principles.
+          **Oldspeak Text:** "${inputText}"
+          **Newspeak Translation:**
+        `;
+      } else {
+        prompt = `
+          You are a "MagaSpeak" translator. Your task is to translate the following text into MagaSpeak, the political dialect of the America First movement. Your translation MUST follow these principles strictly:
+          1. **Core Function: Polarize Thought.** Collapse all meaning into a rigid binary: loyal vs. treacherous, strong vs. weak, good for America vs. bad for America. Eliminate all nuance.
+          2. **A Vocabulary (Rally Words):** Use simple, high-affect, monosyllabic words (great, strong, sad, bad, weak, loser). Use a 4th-grade reading level.
+          3. **B Vocabulary (Loyalty Codes):** Use "Fake News" for critical media, "Deep State" for obstacles, "Witch Hunt" for investigations. Incorporate slogans like "Make America Great Again". Use derogatory nicknames for opponents (Sleepy Joe, Crooked Hillary) and label dissenters as "RINOs."
+          4. **C Vocabulary (Weaponized Concepts):** Use "Woke," "CRT," "Globalist," "Socialist," and "Communist" as all-encompassing terms of abuse. Use "Rigged" or "Hoax" for unfavorable results.
+          5. **Grammar and Rhetoric:** Use relentless superlatives (best, greatest, worst). Use short, declarative, repetitive sentences. Project absolute confidence. Do not worry about logical consistency with past statements.
+          **Translation Task:** Translate the following "Oldspeak" text into MagaSpeak. Be direct, confident, and aggressive in your tone.
+          **Oldspeak Text:** "${inputText}"
+          **MagaSpeak Translation:**
+        `;
+      }
+
+      const { response } = await AI.run(
+        "@cf/meta/llama-3.3-70b-instruct-fp8-fast",
+        {
+          prompt: prompt,
+        }
+      );
+
       translatedText = response;
       isLoading = false;
     }
   } catch (err) {
-    console.error('Translation failed:', err);
-    error = "Something went wrong with the translation. The Deep State is probably interfering. Try again.";
+    console.error("Translation failed:", err);
+    error =
+      "Something went wrong with the translation. The Deep State is probably interfering. Try again.";
     isLoading = false;
   }
 }
 ---
 
 <div>
-  <form method="POST" enctype="multipart/form-data" action="/" class="space-y-4">
+  <form
+    method="POST"
+    enctype="multipart/form-data"
+    action="/"
+    class="space-y-4"
+    id="translatorForm"
+  >
     <div class="mb-4">
-      <label for="inputText" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+      <label
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+      >
+        Translation Mode
+      </label>
+      <div class="flex space-x-4 mb-4">
+        <label class="flex items-center">
+          <input
+            type="radio"
+            name="translationMode"
+            value="magaspeak"
+            class="mr-2"
+            checked={!translationMode || translationMode === "magaspeak"}
+          />
+          <span class="text-red-600 font-semibold">MagaSpeak</span>
+        </label>
+        <label class="flex items-center">
+          <input
+            type="radio"
+            name="translationMode"
+            value="newspeak"
+            class="mr-2"
+            checked={translationMode === "newspeak"}
+          />
+          <span class="text-blue-600 font-semibold">Newspeak (1984)</span>
+        </label>
+      </div>
+    </div>
+
+    <div class="mb-4">
+      <label
+        for="inputText"
+        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+      >
         Oldspeak (Standard English)
       </label>
-      <textarea 
-        id="inputText" 
+      <textarea
+        id="inputText"
         name="inputText"
-        rows="6" 
-        class="w-full p-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150" 
+        rows="6"
+        class="w-full p-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
         placeholder="e.g., The recent economic report indicates a period of moderate growth..."
-        required
-      >{inputText || ''}</textarea>
+        required>{inputText || ""}</textarea
+      >
     </div>
-    
+
     <div class="text-center my-6">
-      <button 
+      <button
         type="submit"
+        id="submitButton"
         class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
         disabled={isLoading}
       >
-        Translate to MagaSpeak
+        Translate to {translationMode === "newspeak" ? "Newspeak" : "MagaSpeak"}
       </button>
     </div>
 
-    {isLoading && (
-      <div class="flex flex-col justify-center items-center my-8 p-6 bg-gradient-to-r from-red-50 to-blue-50 dark:from-red-900/20 dark:to-blue-900/20 rounded-lg border-2 border-dashed border-red-300 dark:border-red-600">
-        <div class="relative">
-          <div class="animate-spin rounded-full h-16 w-16 border-4 border-red-200 border-t-red-600"></div>
-          <div class="absolute inset-0 animate-pulse rounded-full h-16 w-16 border-4 border-transparent border-t-blue-400 opacity-60" style="animation-delay: 0.2s;"></div>
+    <!-- Loading indicator (initially hidden, shown by JavaScript) -->
+    <div
+      id="loadingIndicator"
+      class="hidden flex-col justify-center items-center my-8 p-6 bg-gradient-to-r from-red-50 to-blue-50 dark:from-red-900/20 dark:to-blue-900/20 rounded-lg border-2 border-dashed border-red-300 dark:border-red-600"
+    >
+      <div class="relative">
+        <div
+          class="animate-spin rounded-full h-16 w-16 border-4 border-red-200 border-t-red-600"
+        >
         </div>
-        <div class="mt-4 text-center">
-          <p class="text-lg font-semibold text-red-600 dark:text-red-400 animate-pulse">
-            Making America's Language Great Again...
-          </p>
-          <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-            The best translation is coming, believe me. It's going to be tremendous!
-          </p>
-        </div>
-        <div class="flex space-x-1 mt-3">
-          <div class="w-2 h-2 bg-red-500 rounded-full animate-bounce"></div>
-          <div class="w-2 h-2 bg-white rounded-full animate-bounce" style="animation-delay: 0.1s;"></div>
-          <div class="w-2 h-2 bg-blue-500 rounded-full animate-bounce" style="animation-delay: 0.2s;"></div>
+        <div
+          class="absolute inset-0 animate-pulse rounded-full h-16 w-16 border-4 border-transparent border-t-blue-400 opacity-60"
+          style="animation-delay: 0.2s;"
+        >
         </div>
       </div>
-    )}
+      <div class="mt-4 text-center">
+        <p
+          class="text-lg font-semibold text-red-600 dark:text-red-400 animate-pulse"
+          id="loadingText"
+        >
+          Making America's Language Great Again...
+        </p>
+        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+          The best translation is coming, believe me. It's going to be
+          tremendous!
+        </p>
+      </div>
+      <div class="flex space-x-1 mt-3">
+        <div class="w-2 h-2 bg-red-500 rounded-full animate-bounce"></div>
+        <div
+          class="w-2 h-2 bg-white rounded-full animate-bounce"
+          style="animation-delay: 0.1s;"
+        >
+        </div>
+        <div
+          class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+          style="animation-delay: 0.2s;"
+        >
+        </div>
+      </div>
+    </div>
 
-    {translatedText && (
-      <div>
-        <label for="outputText" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-          MagaSpeak
-        </label>
-        <div class="w-full p-4 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg min-h-[150px] whitespace-pre-wrap">
-          {translatedText}
+    <!-- Server-side loading state (backup) -->
+    {
+      isLoading && (
+        <div class="flex flex-col justify-center items-center my-8 p-6 bg-gradient-to-r from-red-50 to-blue-50 dark:from-red-900/20 dark:to-blue-900/20 rounded-lg border-2 border-dashed border-red-300 dark:border-red-600">
+          <div class="relative">
+            <div class="animate-spin rounded-full h-16 w-16 border-4 border-red-200 border-t-red-600" />
+            <div
+              class="absolute inset-0 animate-pulse rounded-full h-16 w-16 border-4 border-transparent border-t-blue-400 opacity-60"
+              style="animation-delay: 0.2s;"
+            />
+          </div>
+          <div class="mt-4 text-center">
+            <p class="text-lg font-semibold text-red-600 dark:text-red-400 animate-pulse">
+              {translationMode === "newspeak"
+                ? "Compressing language for Party compliance..."
+                : "Making America's Language Great Again..."}
+            </p>
+            <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
+              The best translation is coming, believe me. It's going to be
+              tremendous!
+            </p>
+          </div>
+          <div class="flex space-x-1 mt-3">
+            <div class="w-2 h-2 bg-red-500 rounded-full animate-bounce" />
+            <div
+              class="w-2 h-2 bg-white rounded-full animate-bounce"
+              style="animation-delay: 0.1s;"
+            />
+            <div
+              class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+              style="animation-delay: 0.2s;"
+            />
+          </div>
         </div>
-      </div>
-    )}
+      )
+    }
 
-    {error && (
-      <div class="mt-4 p-4 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 rounded-lg">
-        <p>{error}</p>
-      </div>
-    )}
+    {
+      translatedText && (
+        <div>
+          <label
+            for="outputText"
+            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+          >
+            {translationMode === "newspeak" ? "Newspeak (1984)" : "MagaSpeak"}
+          </label>
+          <div class="w-full p-4 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg min-h-[150px] whitespace-pre-wrap">
+            {translatedText}
+          </div>
+        </div>
+      )
+    }
+
+    {
+      error && (
+        <div class="mt-4 p-4 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 rounded-lg">
+          <p>{error}</p>
+        </div>
+      )
+    }
   </form>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const form = document.getElementById("translatorForm");
+      const loadingIndicator = document.getElementById("loadingIndicator");
+      const submitButton = document.getElementById("submitButton");
+      const loadingText = document.getElementById("loadingText");
+
+      form?.addEventListener("submit", () => {
+        // Get the selected translation mode
+        const selectedMode = document.querySelector(
+          'input[name="translationMode"]:checked'
+        )?.value;
+
+        // Update loading text based on mode
+        if (loadingText) {
+          loadingText.textContent =
+            selectedMode === "newspeak"
+              ? "Compressing language for Party compliance..."
+              : "Making America's Language Great Again...";
+        }
+
+        // Show loading indicator
+        if (loadingIndicator) {
+          loadingIndicator.classList.remove("hidden");
+          loadingIndicator.classList.add("flex");
+        }
+
+        // Disable submit button
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = "Translating...";
+        }
+      });
+    });
+  </script>
 </div>
