@@ -118,6 +118,33 @@ if (Astro.request.method === "POST") {
         placeholder="e.g., The recent economic report indicates a period of moderate growth..."
         required>{inputText || ""}</textarea
       >
+      
+      <div class="mt-2">
+        <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Quick examples (click to use):</p>
+        <div class="flex flex-wrap gap-2">
+          <button
+            type="button"
+            class="example-link text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+            data-example="The recent economic reports show slowing job growth"
+          >
+            Economic Report Example
+          </button>
+          <button
+            type="button"
+            class="example-link text-xs px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
+            data-example="The job growth numbers show a 1% gain amongst Coal and Oil"
+          >
+            Energy Jobs Example
+          </button>
+          <button
+            type="button"
+            class="example-link text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors"
+            data-example="Solar power shown to be the most inexpensive option per KW to install"
+          >
+            Solar Power Example
+          </button>
+        </div>
+      </div>
     </div>
 
     <div class="text-center my-6">
@@ -242,6 +269,19 @@ if (Astro.request.method === "POST") {
       const loadingIndicator = document.getElementById("loadingIndicator");
       const submitButton = document.getElementById("submitButton");
       const loadingText = document.getElementById("loadingText");
+      const inputTextarea = document.getElementById("inputText");
+      const exampleLinks = document.querySelectorAll(".example-link");
+
+      // Handle example button clicks
+      exampleLinks.forEach(link => {
+        link.addEventListener("click", () => {
+          const exampleText = link.getAttribute("data-example");
+          if (inputTextarea && exampleText) {
+            inputTextarea.value = exampleText;
+            inputTextarea.focus();
+          }
+        });
+      });
 
       form?.addEventListener("submit", () => {
         // Get the selected translation mode
