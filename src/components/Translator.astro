@@ -70,43 +70,43 @@ if (Astro.request.method === "POST") {
     method="POST"
     enctype="multipart/form-data"
     action="/"
-    class="space-y-4"
+    class="space-y-luxury"
     id="translatorForm"
   >
-    <div class="mb-4">
+    <div class="mb-luxury">
       <label
-        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        class="block text-lg font-executive text-navy-700 mb-executive"
       >
         Translation Mode
       </label>
-      <div class="flex space-x-4 mb-4">
-        <label class="flex items-center">
+      <div class="flex space-x-luxury mb-luxury">
+        <label class="flex items-center opulent-card p-executive rounded-jewel hover:shadow-golden-md transition-all duration-300">
           <input
             type="radio"
             name="translationMode"
             value="magaspeak"
-            class="mr-2"
+            class="mr-executive accent-power-500"
             checked={!translationMode || translationMode === "magaspeak"}
           />
-          <span class="text-red-600 font-semibold">MagaSpeak</span>
+          <span class="text-power-600 font-executive font-bold">MagaSpeak</span>
         </label>
-        <label class="flex items-center">
+        <label class="flex items-center opulent-card p-executive rounded-jewel hover:shadow-golden-md transition-all duration-300">
           <input
             type="radio"
             name="translationMode"
             value="newspeak"
-            class="mr-2"
+            class="mr-executive accent-navy-500"
             checked={translationMode === "newspeak"}
           />
-          <span class="text-blue-600 font-semibold">Newspeak (1984)</span>
+          <span class="text-navy-600 font-executive font-bold">Newspeak (1984)</span>
         </label>
       </div>
     </div>
 
-    <div class="mb-4">
+    <div class="mb-luxury">
       <label
         for="inputText"
-        class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+        class="block text-lg font-executive text-navy-700 mb-executive"
       >
         Oldspeak (Standard English)
       </label>
@@ -114,31 +114,31 @@ if (Astro.request.method === "POST") {
         id="inputText"
         name="inputText"
         rows="6"
-        class="w-full p-3 bg-gray-50 dark:bg-gray-700 border border-gray-300 dark:border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition duration-150"
+        class="w-full p-executive bg-diamond-100 border-2 border-bling-400 rounded-jewel focus:ring-4 focus:ring-bling-300 focus:border-bling-600 transition duration-300 font-gilded text-navy-800 shadow-golden-sm"
         placeholder="e.g., The recent economic report indicates a period of moderate growth..."
         required>{inputText || ""}</textarea
       >
       
-      <div class="mt-2">
-        <p class="text-xs text-gray-500 dark:text-gray-400 mb-2">Quick examples (click to use):</p>
-        <div class="flex flex-wrap gap-2">
+      <div class="mt-executive">
+        <p class="text-sm font-executive text-navy-600 mb-executive">Quick examples (click to use):</p>
+        <div class="flex flex-wrap gap-executive">
           <button
             type="button"
-            class="example-link text-xs px-2 py-1 bg-blue-100 dark:bg-blue-900 text-blue-700 dark:text-blue-300 rounded hover:bg-blue-200 dark:hover:bg-blue-800 transition-colors"
+            class="example-link text-sm px-executive py-2 bg-emerald-100 text-emerald-700 rounded-crown hover:bg-emerald-200 hover:shadow-golden-sm transition-all duration-300 font-executive border border-emerald-300"
             data-example="The recent economic reports show slowing job growth"
           >
             Economic Report Example
           </button>
           <button
             type="button"
-            class="example-link text-xs px-2 py-1 bg-green-100 dark:bg-green-900 text-green-700 dark:text-green-300 rounded hover:bg-green-200 dark:hover:bg-green-800 transition-colors"
+            class="example-link text-sm px-executive py-2 bg-navy-100 text-navy-700 rounded-crown hover:bg-navy-200 hover:shadow-golden-sm transition-all duration-300 font-executive border border-navy-300"
             data-example="The job growth numbers show a 1% gain amongst Coal and Oil"
           >
             Energy Jobs Example
           </button>
           <button
             type="button"
-            class="example-link text-xs px-2 py-1 bg-purple-100 dark:bg-purple-900 text-purple-700 dark:text-purple-300 rounded hover:bg-purple-200 dark:hover:bg-purple-800 transition-colors"
+            class="example-link text-sm px-executive py-2 bg-bling-100 text-bling-800 rounded-crown hover:bg-bling-200 hover:shadow-golden-sm transition-all duration-300 font-executive border border-bling-300"
             data-example="Solar power shown to be the most inexpensive option per KW to install"
           >
             Solar Power Example
@@ -147,11 +147,11 @@ if (Astro.request.method === "POST") {
       </div>
     </div>
 
-    <div class="text-center my-6">
+    <div class="text-center my-opulent">
       <button
         type="submit"
         id="submitButton"
-        class="bg-red-600 hover:bg-red-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg transform hover:scale-105 transition-transform duration-200 ease-in-out disabled:opacity-50 disabled:cursor-not-allowed"
+        class="luxury-button py-luxury px-supreme rounded-treasure shadow-golden-lg transform hover:scale-105 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed text-xl"
         disabled={isLoading}
       >
         Translate to {translationMode === "newspeak" ? "Newspeak" : "MagaSpeak"}
@@ -161,40 +161,39 @@ if (Astro.request.method === "POST") {
     <!-- Loading indicator (initially hidden, shown by JavaScript) -->
     <div
       id="loadingIndicator"
-      class="hidden flex-col justify-center items-center my-8 p-6 bg-gradient-to-r from-red-50 to-blue-50 dark:from-red-900/20 dark:to-blue-900/20 rounded-lg border-2 border-dashed border-red-300 dark:border-red-600"
+      class="hidden flex-col justify-center items-center my-opulent p-opulent golden-gradient rounded-palace border-4 border-bling-500 shadow-golden-xl"
     >
       <div class="relative">
         <div
-          class="animate-spin rounded-full h-16 w-16 border-4 border-red-200 border-t-red-600"
+          class="animate-spin rounded-full h-20 w-20 border-4 border-bling-200 border-t-bling-600"
         >
         </div>
         <div
-          class="absolute inset-0 animate-pulse rounded-full h-16 w-16 border-4 border-transparent border-t-blue-400 opacity-60"
+          class="absolute inset-0 animate-pulse rounded-full h-20 w-20 border-4 border-transparent border-t-diamond-500 opacity-80"
           style="animation-delay: 0.2s;"
         >
         </div>
       </div>
-      <div class="mt-4 text-center">
+      <div class="mt-luxury text-center">
         <p
-          class="text-lg font-semibold text-red-600 dark:text-red-400 animate-pulse"
+          class="text-xl font-executive text-navy-800 animate-pulse font-bold"
           id="loadingText"
         >
           Making America's Language Great Again...
         </p>
-        <p class="text-sm text-gray-600 dark:text-gray-400 mt-2">
-          The best translation is coming, believe me. It's going to be
-          tremendous!
+        <p class="text-lg font-gilded text-navy-700 mt-executive">
+          The best translation is coming, believe me. It's going to be tremendous!
         </p>
       </div>
-      <div class="flex space-x-1 mt-3">
-        <div class="w-2 h-2 bg-red-500 rounded-full animate-bounce"></div>
+      <div class="flex space-x-executive mt-luxury">
+        <div class="w-3 h-3 bg-power-500 rounded-full animate-bounce"></div>
         <div
-          class="w-2 h-2 bg-white rounded-full animate-bounce"
+          class="w-3 h-3 bg-diamond-500 rounded-full animate-bounce"
           style="animation-delay: 0.1s;"
         >
         </div>
         <div
-          class="w-2 h-2 bg-blue-500 rounded-full animate-bounce"
+          class="w-3 h-3 bg-navy-500 rounded-full animate-bounce"
           style="animation-delay: 0.2s;"
         >
         </div>
@@ -240,14 +239,14 @@ if (Astro.request.method === "POST") {
 
     {
       translatedText && (
-        <div>
+        <div class="mt-opulent">
           <label
             for="outputText"
-            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2"
+            class="block text-lg font-executive text-navy-700 mb-executive"
           >
             {translationMode === "newspeak" ? "Newspeak (1984)" : "MagaSpeak"}
           </label>
-          <div class="w-full p-4 bg-gray-100 dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-lg min-h-[150px] whitespace-pre-wrap">
+          <div class="w-full p-luxury bg-diamond-50 border-2 border-bling-500 rounded-treasure min-h-[200px] whitespace-pre-wrap font-gilded text-navy-800 text-lg leading-relaxed shadow-golden-md">
             {translatedText}
           </div>
         </div>
@@ -256,8 +255,8 @@ if (Astro.request.method === "POST") {
 
     {
       error && (
-        <div class="mt-4 p-4 bg-red-100 dark:bg-red-900 border border-red-400 dark:border-red-700 text-red-700 dark:text-red-200 rounded-lg">
-          <p>{error}</p>
+        <div class="mt-luxury p-luxury bg-power-100 border-2 border-power-500 text-power-800 rounded-treasure shadow-golden-sm">
+          <p class="font-executive text-lg font-bold">{error}</p>
         </div>
       )
     }

@@ -1,5 +1,11 @@
 ---
-import '../styles/global.css' 
+import '../styles/golden-goblet-theme.css'
+
+export interface Props {
+	title?: string;
+}
+
+const { title = "MagaSpeak - The Golden Goblet Edition" } = Astro.props;
 ---
 <!doctype html>
 <html lang="en">
@@ -7,10 +13,13 @@ import '../styles/global.css'
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="preconnect" href="https://fonts.googleapis.com">
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+		<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Libre+Baskerville:wght@400;700&family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
 		<meta name="generator" content={Astro.generator} />
-		<title>MagaSpeak, the modern Newspeak</title>
+		<title>{title}</title>
 	</head>
-	<body>
+	<body class="marble-background min-h-screen">
 		<slot />
 	</body>
 </html>

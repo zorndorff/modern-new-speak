@@ -1,0 +1,181 @@
+/* The Golden Goblet: Supreme Executive Bling Theme */
+@import "tailwindcss";
+
+@theme {
+  /* Custom Color Palette - Supreme Executive Bling */
+  --color-bling-50: oklch(98% 0.02 85);
+  --color-bling-100: oklch(95% 0.04 85);
+  --color-bling-200: oklch(90% 0.08 85);
+  --color-bling-300: oklch(85% 0.12 85);
+  --color-bling-400: oklch(80% 0.16 85);
+  --color-bling-500: #FFD700; /* Primary Bling Gold */
+  --color-bling-600: oklch(70% 0.18 85);
+  --color-bling-700: oklch(60% 0.16 85);
+  --color-bling-800: oklch(50% 0.14 85);
+  --color-bling-900: oklch(40% 0.12 85);
+  --color-bling-950: oklch(25% 0.08 85);
+
+  --color-diamond-50: oklch(100% 0 0);
+  --color-diamond-100: oklch(98% 0.005 270);
+  --color-diamond-200: oklch(95% 0.01 270);
+  --color-diamond-300: oklch(92% 0.015 270);
+  --color-diamond-400: oklch(88% 0.02 270);
+  --color-diamond-500: #FFFFFF; /* Diamond Dust White */
+  --color-diamond-600: oklch(85% 0.02 270);
+  --color-diamond-700: oklch(80% 0.025 270);
+  --color-diamond-800: oklch(75% 0.03 270);
+  --color-diamond-900: oklch(70% 0.035 270);
+  --color-diamond-950: oklch(60% 0.04 270);
+
+  --color-power-50: oklch(98% 0.02 25);
+  --color-power-100: oklch(95% 0.04 25);
+  --color-power-200: oklch(90% 0.08 25);
+  --color-power-300: oklch(85% 0.12 25);
+  --color-power-400: oklch(75% 0.18 25);
+  --color-power-500: #FF0000; /* Power Red Alert */
+  --color-power-600: oklch(65% 0.22 25);
+  --color-power-700: oklch(55% 0.20 25);
+  --color-power-800: oklch(45% 0.18 25);
+  --color-power-900: oklch(35% 0.15 25);
+  --color-power-950: oklch(25% 0.12 25);
+
+  --color-navy-50: oklch(95% 0.02 240);
+  --color-navy-100: oklch(90% 0.04 240);
+  --color-navy-200: oklch(80% 0.08 240);
+  --color-navy-300: oklch(70% 0.12 240);
+  --color-navy-400: oklch(60% 0.16 240);
+  --color-navy-500: #000080; /* Billionaire's Navy */
+  --color-navy-600: oklch(45% 0.18 240);
+  --color-navy-700: oklch(35% 0.16 240);
+  --color-navy-800: oklch(25% 0.14 240);
+  --color-navy-900: oklch(18% 0.12 240);
+  --color-navy-950: oklch(12% 0.10 240);
+
+  --color-emerald-50: oklch(98% 0.02 155);
+  --color-emerald-100: oklch(95% 0.04 155);
+  --color-emerald-200: oklch(90% 0.08 155);
+  --color-emerald-300: oklch(85% 0.12 155);
+  --color-emerald-400: oklch(75% 0.18 155);
+  --color-emerald-500: #008000; /* Invisible Bank Account Green */
+  --color-emerald-600: oklch(65% 0.20 155);
+  --color-emerald-700: oklch(55% 0.18 155);
+  --color-emerald-800: oklch(45% 0.16 155);
+  --color-emerald-900: oklch(35% 0.14 155);
+  --color-emerald-950: oklch(25% 0.12 155);
+
+  /* Custom Luxury Fonts */
+  --font-imperial: "Playfair Display", "Trajan Pro", serif;
+  --font-executive: "Libre Baskerville", "Times New Roman", serif;
+  --font-gilded: "Crimson Text", "Georgia", serif;
+
+  /* Executive Spacing for Opulence */
+  --spacing-executive: 0.5rem;
+  --spacing-luxury: 1rem;
+  --spacing-opulent: 2rem;
+  --spacing-supreme: 4rem;
+
+  /* Golden Shadows */
+  --shadow-golden-sm: 0 2px 8px rgba(255, 215, 0, 0.3), 0 1px 4px rgba(255, 215, 0, 0.2);
+  --shadow-golden-md: 0 4px 16px rgba(255, 215, 0, 0.4), 0 2px 8px rgba(255, 215, 0, 0.3);
+  --shadow-golden-lg: 0 8px 32px rgba(255, 215, 0, 0.5), 0 4px 16px rgba(255, 215, 0, 0.4);
+  --shadow-golden-xl: 0 16px 64px rgba(255, 215, 0, 0.6), 0 8px 32px rgba(255, 215, 0, 0.5);
+
+  /* Luxury Border Radius */
+  --radius-crown: 0.125rem;
+  --radius-jewel: 0.5rem;
+  --radius-treasure: 1rem;
+  --radius-palace: 2rem;
+
+  /* Executive Animations */
+  --animate-shimmer: shimmer 2s ease-in-out infinite alternate;
+  --animate-glow: glow 1.5s ease-in-out infinite alternate;
+  --animate-float: float 3s ease-in-out infinite;
+
+  @keyframes shimmer {
+    0% {
+      background-position: -200% 0;
+    }
+    100% {
+      background-position: 200% 0;
+    }
+  }
+
+  @keyframes glow {
+    0% {
+      box-shadow: 0 0 5px rgba(255, 215, 0, 0.5);
+    }
+    100% {
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 30px rgba(255, 215, 0, 0.6);
+    }
+  }
+
+  @keyframes float {
+    0%, 100% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+  }
+}
+
+/* Custom Component Styles for Supreme Executive Bling */
+@layer components {
+  .golden-gradient {
+    background: linear-gradient(45deg, #FFD700, #FFA500, #FFD700);
+    background-size: 200% 200%;
+    animation: var(--animate-shimmer);
+  }
+
+  .diamond-sparkle {
+    background: radial-gradient(circle, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8) 50%, rgba(255,255,255,0.3) 100%);
+    animation: var(--animate-glow);
+  }
+
+  .executive-text {
+    font-family: var(--font-imperial);
+    color: var(--color-bling-500);
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3), 0 0 10px rgba(255,215,0,0.5);
+    font-weight: 700;
+  }
+
+  .luxury-button {
+    background: var(--color-bling-500);
+    color: var(--color-navy-900);
+    font-family: var(--font-executive);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    box-shadow: var(--shadow-golden-lg);
+    border: 3px solid #B8860B;
+    transition: all 0.3s ease;
+  }
+
+  .luxury-button:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-golden-xl);
+    animation: var(--animate-glow);
+  }
+
+  .opulent-card {
+    background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.85) 100%);
+    border: 2px solid var(--color-bling-500);
+    box-shadow: var(--shadow-golden-md);
+    backdrop-filter: blur(10px);
+  }
+
+  .marble-background {
+    background: 
+      linear-gradient(45deg, rgba(255,215,0,0.1) 25%, transparent 25%, transparent 75%, rgba(255,215,0,0.1) 75%),
+      linear-gradient(-45deg, rgba(255,215,0,0.1) 25%, transparent 25%, transparent 75%, rgba(255,215,0,0.1) 75%),
+      radial-gradient(circle, #f8f9fa 0%, #e9ecef 100%);
+    background-size: 60px 60px, 60px 60px, 100% 100%;
+    background-position: 0 0, 30px 30px, 0 0;
+  }
+
+  .crown-icon {
+    color: var(--color-bling-500);
+    filter: drop-shadow(0 0 8px rgba(255,215,0,0.6));
+    animation: var(--animate-float);
+  }
+}
